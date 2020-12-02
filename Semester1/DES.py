@@ -3,6 +3,7 @@ import sys, numpy, array
 klartext = ''
 schlussel = ''
 ausgabe_IP = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
 halfteL1 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 halfteR1 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 expX1 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -23,6 +24,12 @@ sbox5Tabelle = [[2,12,4,1,7,10,11,6,8,5,3,15,13,0,14,9], [14,11,2,12,4,7,13,1,5,
 sbox6Tabelle = [[12,1,10,15,9,2,6,8,0,13,3,4,14,7,5,11], [10,15,4,2,7,12,9,5,6,1,13,14,0,11,3,8], [9,14,15,5,2,8,12,3,7,0,4,10,1,13,11,6], [4,3,2,12,9,5,15,10,11,14,1,7,6,0,8,13]]
 sbox7Tabelle = [[4,11,2,14,15,0,8,13,3,12,9,7,5,10,6,1], [13,0,11,7,4,9,1,10,14,3,5,12,2,15,8,6], [1,4,11,13,12,3,7,14,10,15,6,8,0,5,9,2], [6,11,13,8,1,4,10,7,9,5,0,15,14,2,3,12]]
 sbox8Tabelle = [[13,2,8,4,6,15,11,1,10,9,3,14,5,0,12,7], [1,15,13,8,10,3,7,4,12,5,6,11,0,14,9,2], [7,11,4,1,9,12,14,2,0,6,10,13,15,3,5,8], [2,1,14,7,4,10,8,13,15,12,9,0,3,5,6,11]]
+
+def schrumpfeArray(array, tabelle):
+	saule = int(str(array[1])+str(array[2])+str(array[3])+str(array[4]),2)
+	zeile = int(str(array[0])+str(array[5]),2)
+	return str(bin(tabelle[zeile][saule])[2:]).rjust(4,'0')
+
 ############################### Überprüfung ##################################
 if len(sys.argv) < 3:
 	print ('zu wenig Argumente. Klartext als Arg1 und Schlüssel als Arg2')
@@ -76,10 +83,23 @@ sbox8[0:6] = xorX1[42:48]
 print('\nS-Boxes vor dem Schrumpfen:')
 print(str(xorX1[0:6]) +'\n'+ str(xorX1[6:12]) +'\n'+ str(xorX1[12:18]) +'\n'+ str(xorX1[18:24]) +'\n'+ str(xorX1[24:30]) +'\n'+ str(xorX1[30:36]) +'\n'+ str(xorX1[36:42]) +'\n'+ str(xorX1[42:48]))
 ################################ Schrumpfen ###################################
-saule = int(str(sbox8[1])+str(sbox8[2])+str(sbox8[3])+str(sbox8[4]),2)
-zeile = int(str(sbox8[0])+str(sbox8[5]),2)
-endSbox8= sbox8Tabelle[zeile][saule]
+print('S-Boxes nach dem Schrumpfen:')
+print('[' + schrumpfeArray(sbox1,sbox1Tabelle) + ']' )
+print('[' + schrumpfeArray(sbox2,sbox2Tabelle) + ']' )
+print('[' + schrumpfeArray(sbox3,sbox3Tabelle) + ']' )
+print('[' + schrumpfeArray(sbox4,sbox4Tabelle) + ']' )
+print('[' + schrumpfeArray(sbox5,sbox5Tabelle) + ']' )
+print('[' + schrumpfeArray(sbox6,sbox6Tabelle) + ']' )
+print('[' + schrumpfeArray(sbox7,sbox7Tabelle) + ']' )
+print('[' + schrumpfeArray(sbox8,sbox8Tabelle) + ']' )
 
-print('\nS-Boxes nach dem Schrumpfen:')
-print(endSbox8)
+zusammengesetzt = schrumpfeArray(sbox1,sbox1Tabelle) + schrumpfeArray(sbox2,sbox2Tabelle) + schrumpfeArray(sbox3,sbox3Tabelle) + schrumpfeArray(sbox4,sbox4Tabelle) + schrumpfeArray(sbox5,sbox5Tabelle) + schrumpfeArray(sbox6,sbox6Tabelle) + schrumpfeArray(sbox7,sbox7Tabelle) + schrumpfeArray(sbox8,sbox8Tabelle)
+print('S-Boxes nach dem Schrumpfen zusammengesetzt:\n' + zusammengesetzt)
+############################### Permutation ##################################
+
+############################# Zusammensetzen #################################
+print('\nDie rechte Hälfte der verschlüsselten Nachricht in Runde 1 ist:')
+
+print('\nDie linke Hälfte der verschlüsselten Nachricht in Runde 1 ist:')
+
 print('\n-----------------------------------------------------------------------')
