@@ -65,20 +65,21 @@ for ne in range(0,48):
 	xorX1[ne] = int(schlussel[ne]) ^ int(expX1[ne])
 	print(xorX1[ne],end="")
 ################################# S-Boxes #####################################
-sbox1[0:5] = xorX1[0:5]
-sbox2[0:5] = xorX1[6:11]
-sbox3[0:5] = xorX1[12:17]
-sbox4[0:5] = xorX1[18:23]
-sbox5[0:5] = xorX1[24:29]
-sbox6[0:5] = xorX1[30:35]
-sbox7[0:5] = xorX1[36:41]
-sbox8[0:5] = xorX1[42:47]
+sbox1[0:6] = xorX1[0:6]
+sbox2[0:6] = xorX1[6:12]
+sbox3[0:6] = xorX1[12:18]
+sbox4[0:6] = xorX1[18:24]
+sbox5[0:6] = xorX1[24:30]
+sbox6[0:6] = xorX1[30:36]
+sbox7[0:6] = xorX1[36:42]
+sbox8[0:6] = xorX1[42:48]
 print('\nS-Boxes vor dem Schrumpfen:')
-print(str(xorX1[0:5]) +'\n'+ str(xorX1[6:11]) +'\n'+ str(xorX1[12:17]) +'\n'+ str(xorX1[18:23]) +'\n'+ str(xorX1[24:29]) +'\n'+ str(xorX1[30:35]) +'\n'+ str(xorX1[36:41]) +'\n'+ str(xorX1[42:47]))
+print(str(xorX1[0:6]) +'\n'+ str(xorX1[6:12]) +'\n'+ str(xorX1[12:18]) +'\n'+ str(xorX1[18:24]) +'\n'+ str(xorX1[24:30]) +'\n'+ str(xorX1[30:36]) +'\n'+ str(xorX1[36:42]) +'\n'+ str(xorX1[42:48]))
 ################################ Schrumpfen ###################################
 saule = int(str(sbox8[1])+str(sbox8[2])+str(sbox8[3])+str(sbox8[4]),2)
 zeile = int(str(sbox8[0])+str(sbox8[5]),2)
+endSbox8= sbox8Tabelle[zeile][saule]
 
 print('\nS-Boxes nach dem Schrumpfen:')
-
+print(endSbox8)
 print('\n-----------------------------------------------------------------------')
