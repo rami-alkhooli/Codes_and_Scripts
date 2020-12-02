@@ -3,7 +3,10 @@ import sys, numpy, array
 klartext = ''
 schlussel = ''
 ausgabe_IP = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-
+IP = [58,50,42,34,26,18,10,2,60,52,44,36,28,20,12,4,62,54,46,38,30,22,14,6,64,56,48,40,32,24,16,8,57,49,41,33,25,17,9,1,59,51,43,35,27,19,11,3,61,53,45,37,29,21,13,5,63,55,47,39,31,23,15,7]
+IP_f = [16,7,20,21,29,12,28,17,1,15,23,26,5,18,31,10,2,8,24,14,32,27,3,9,19,13,30,6,22,11,4,25]
+IP_1 = [40,8,48,16,56,24,64,32,39,7,47,15,55,23,63,31,38,6,46,14,54,22,62,30,37,5,45,13,53,21,61,29,36,4,44,12,52,20,60,28,35,3,43,11,51,19,59,27,34,2,42,10,50,18,58,26,33,1,41,9,49,17,57,25]
+sbox_P = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 halfteL1 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 halfteR1 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 expX1 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -44,7 +47,6 @@ if (len(klartext) != 64) and (len(schlussel) != 48):
 print('-----------------------------------------------------------------------')
 print('Klartext:\n' + klartext)
 ############################ Eingangspermutation ##############################
-IP = [58,50,42,34,26,18,10,2,60,52,44,36,28,20,12,4,62,54,46,38,30,22,14,6,64,56,48,40,32,24,16,8,57,49,41,33,25,17,9,1,59,51,43,35,27,19,11,3,61,53,45,37,29,21,13,5,63,55,47,39,31,23,15,7]
 print('Nach 1. Permutation:')
 for na in range(0,64):
 	ausgabe_IP[na] = klartext[IP[na]-1]
@@ -96,10 +98,25 @@ print('[' + schrumpfeArray(sbox8,sbox8Tabelle) + ']' )
 zusammengesetzt = schrumpfeArray(sbox1,sbox1Tabelle) + schrumpfeArray(sbox2,sbox2Tabelle) + schrumpfeArray(sbox3,sbox3Tabelle) + schrumpfeArray(sbox4,sbox4Tabelle) + schrumpfeArray(sbox5,sbox5Tabelle) + schrumpfeArray(sbox6,sbox6Tabelle) + schrumpfeArray(sbox7,sbox7Tabelle) + schrumpfeArray(sbox8,sbox8Tabelle)
 print('S-Boxes nach dem Schrumpfen zusammengesetzt:\n' + zusammengesetzt)
 ############################### Permutation ##################################
-
+print('Nach f-Permutation:')
+for nf in range(0,32):
+	sbox_P[nf] = zusammengesetzt[IP_f[nf]-1]
+	print(sbox_P[nf],end="")
+print("")
 ############################# Zusammensetzen #################################
+rechts = ''
 print('\nDie rechte Hälfte der verschlüsselten Nachricht in Runde 1 ist:')
+for nf in range(0,32):
+	print(sbox_P[nf],end="")
+	rechts += str(sbox_P[nf])
 
 print('\nDie linke Hälfte der verschlüsselten Nachricht in Runde 1 ist:')
+links = ''
+for ng in range(0,32):
+	print(halfteR1[ng],end="")
+	links += str(halfteR1[ng])
 
-print('\n-----------------------------------------------------------------------')
+print('\nDie verschlüsselte Nachricht in Runde 1 ist:')
+all = rechts + links
+print(all)
+print('-----------------------------------------------------------------------')
