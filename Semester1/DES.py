@@ -5,6 +5,7 @@
 # University: Ruhr Univesität Bochum
 # Date: 02.12.2020
 # Place: Bochum, Germany
+# Time taken: ca 7 Hours
 # Version: 1.3
 # Notes: This is only the first round of DES
 
